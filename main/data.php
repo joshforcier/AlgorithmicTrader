@@ -33,6 +33,7 @@ foreach ($allprices as $allprice) {
 }
 
 $sma5History = array();
+$sma13History = array();
 if (!empty($SMA[0][0]['Technical Analysis: SMA'])) {
     foreach ($SMA as $key => $value) {
         // get last 30 results
@@ -88,10 +89,10 @@ function getStockData($apiKey, $symbol, $indicator, $interval, $timePeriods, $se
             . $interval . "&time_period=" . $timePeriod . "&series_type=" . $seriesType . "&apikey=" . $apiKey;
 
         $stockJson = file_get_contents($stockAPI);
-        $SMA[$key] = json_decode($stockJson, true);
+        $result[$key] = json_decode($stockJson, true);
     }
 
-    return $SMA;
+    return $result;
 }
 
 function subtractArrays($arr1, $arr2) {
