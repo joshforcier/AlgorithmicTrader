@@ -1,4 +1,4 @@
-# AlgoTrader
+# Algorithmic Trader
 
 # Alpaca PHP SDK
 This repository contains a PHP SDK for use with the [Alpaca](https://alpaca.markets?ref_by=858915e73e) API.
