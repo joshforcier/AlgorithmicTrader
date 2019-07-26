@@ -33,7 +33,6 @@ foreach ($symbols as $key => $symbol) {
 
     // calculate max qty for buy
     $buyingPower = $account->buying_power;
-    $bought = false;
 
     // Your buy logic here
     // Example, if rsi is < 40, buy 75% of your total $
@@ -49,7 +48,6 @@ foreach ($symbols as $key => $symbol) {
             file_put_contents($filename, $content, FILE_APPEND);
 
             $alpaca->createOrder($symbol, $qty, 'buy', $type, $time_in_force, $limit_price = null, $stop_price = null, $client_order_id = null);
-            $bought = true;
         }
     }
 
