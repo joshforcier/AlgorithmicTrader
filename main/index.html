@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VXXB</title>
+    <script src="/node_modules/chart.js/dist/Chart.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<style>
+    .container {
+        margin: auto;
+        width: 60%;
+    }
+</style>
+
+<body>
+<div class="container">
+    <div class="graphs">
+        <canvas id="smaDiff" width="400" height="400"></canvas>
+    </div>
+    <br />
+    <div class="graphs">
+        <canvas id="slopeTangent" width="400" height="400"></canvas>
+    </div>
+</div>
+</body>
+
+<script type="text/javascript">
+
+var dataset;
+function getData()
+{
+    $.ajax({
+        url: "http://localhost:8080/main/data.php",
+        type: 'GET',
+        async: false,
+        dataType: 'json',
+        success: function(data) {
+            dataset = data;
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+
+    return dataset;
+}
+
+let json = getData();
+let SMA5minusSMA13 = [];
+let slopeTangentSMA5minusSMA13 = [];
+let xCord = [];
+
+// round to 4 digits
+if (json) {
+    SMA5minusSMA13 = json[0].map(function (element) {
+        return Number(element.toFixed(4));
+    });
+    slopeTangentSMA5minusSMA13 = json[1].map(function (element) {
+        return Number(element.toFixed(4));
+    });
+} else {
+    console.log('NO DATA');
+}
+
+// create labels for x coordinates
+for (let i = 0; i < SMA5minusSMA13.length + 1; i++) {
+    xCord[i] = i;
+}
+
+// get min and max values to set y-axis ticks
+var max = SMA5minusSMA13.sort(
+    function(a, b) {
+        return parseFloat(b['value']) - parseFloat(a['value']);
+    }
+)[0];
+var min = SMA5minusSMA13.sort(
+    function(a, b) {
+        return parseFloat(a['value']) - parseFloat(b['value']);
+    }
+)[0];
+
+var ctx = document.getElementById('smaDiff').getContext('2d');
+var ctx2 = document.getElementById('slopeTangent').getContext('2d');
+
+window.onload = function () {
+    var smaDiff = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: xCord,
+            datasets: [{
+                label: 'SMA 5 - 13',
+                fill: false,
+                data: SMA5minusSMA13,
+                borderWidth: 1,
+                backgroundColor: 'blue'
+            }],
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        min: -0.2,
+                        max: 0.2,
+                        stepSize: 0.05,
+                        beginAtZero: false
+                    }
+                }],
+            }
+        }
+    });
+
+    var slopeTangent = new Chart(ctx2, {
+        type: 'line',
+        data: {
+            labels: xCord,
+            datasets: [{
+                label: 'Slope of SMA 5 - 13',
+                fill: false,
+                data: slopeTangentSMA5minusSMA13,
+                borderWidth: 1,
+                backgroundColor: 'red'
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        min: -0.2,
+                        max: 0.2,
+                        stepSize: 0.05,
+                        beginAtZero: false
+                    }
+                }],
+            }
+        }
+    });
+}
+
+</script>
+
+</html>

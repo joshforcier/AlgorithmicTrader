@@ -1,0 +1,7 @@
+// crontab settings for server
+
+30-59/1 13 * * 1-5 /usr/bin/php /home/AlgoTrader/main/logic.php 2>&1 /home/AlgoTrader/main/cronlog.txt
+30-59/1 13 * * 1-5 sleep 30; /usr/bin/php /home/AlgoTrader/main/logic.php 2>&1 /home/AlgoTrader/main/cronlog.txt
+* 14-19 * * 1-5 /usr/bin/php /home/AlgoTrader/main/logic.php 2>&1 /home/AlgoTrader/main/cronlog.txt
+* 14-19 * * 1-5 sleep 30; /usr/bin/php /home/AlgoTrader/main/logic.php 2>&1 /home/AlgoTrader/main/cronlog.txt
+59 19 * * 1-5 /usr/bin/php /home/AlgoTrader/main/closePositions.php 2>&1 /home/AlgoTrader/main/cronlog.txt

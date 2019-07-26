@@ -1,0 +1,6 @@
+{
+    "require": {
+        "jeffreyhyer/alpaca-trade-api-php": "^1.0",
+        "ext-json": "*"
+    }
+}

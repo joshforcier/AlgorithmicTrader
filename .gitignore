@@ -1,0 +1,66 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# C extensions
+*.so
+
+# Distribution / packaging
+composer/
+guzzlehttp/
+nesbot/
+psr/
+ralouphie/
+symfony/
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+node_modules/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+venv*
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*,cover
+
+# Translations
+*.mo
+*.pot
+
+#Vim stuff
+*.swp
+
+# Django stuff:
+*.log
+
+# Sphinx documentation
+docs/_build/
+
+*.bak
+
+# Secret Config
+*_local.cfg
+
+.idea/
